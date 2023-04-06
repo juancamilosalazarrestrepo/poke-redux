@@ -1,0 +1,15 @@
+.App{
+  margin-top: 3rem;
+}
+
+.App img {
+  width: 800px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.logoContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
