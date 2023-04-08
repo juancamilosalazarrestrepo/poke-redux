@@ -5,24 +5,21 @@ import { Col, Spin } from "antd";
 import PokemonList from "./components/PokemonList";
 import logo from "./assets/pokedex-3d-logo.jpg";
 import { useEffect } from "react";
-import { getPokemons } from "./api";
-import { getPokemonsWithDetails, setLoading } from "./actions";
+import { fetchPokemonWithDetails } from "./slices/dataSlice";
 //import { toJS } from "immutable";
 
 function App() {
-  const pokemons = useSelector((state) => state.getIn(["data","pokemons"],shallowEqual)).toJS();
-  const loading = useSelector((state) => state.getIn(['ui','loading']));
+  //const pokemons = useSelector((state) => state.getIn(["data","pokemons"],shallowEqual)).toJS();
+
+  const pokemons = useSelector((state) => state.data.pokemons, shallowEqual);
+
+  //const loading = useSelector((state) => state.getIn(["ui", "loading"]));
+  const loading = useSelector((state) => state.ui.loading);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchPokemons = async () => {
-      dispatch(setLoading(true));
-      const pokemonsRes = await getPokemons();
-      dispatch(getPokemonsWithDetails(pokemonsRes));
-      dispatch(setLoading(false));
-    };
-    fetchPokemons();
+    dispatch(fetchPokemonWithDetails());
   }, []);
 
   return (
